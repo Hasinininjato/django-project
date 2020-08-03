@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My first app in Django</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <script>
-        function onClick() {
-            id = document.getElementById('id_inputText');
-            let shown = false;
-            let hasChild = document.getElementById('button');
-            if (id.value !== '') {
-                shown = true; // We can show the button 'Process'
-            }
+    <head>
+        <meta charset="UTF-8">
+        <title>My first app in Django</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <script>
+            function onFieldChanged() {
+                let id = document.getElementById('id_inputText');
+                let idLength = id.value.length;
+                let shown = false;
+                let hasChild = document.getElementById('button');
+                if (idLength !== 0) {
+                    shown = true; // We can show the button 'Process'
+                }
 
-            if (shown && !hasChild.hasChildNodes()) {
-                // Create a new element: button
-                var button = document.createElement('button');
-                button.type = 'submit';
-                button.id = 'process';
-                button.className = 'btn btn-primary';
-                var textButton = document.createTextNode('Process');
-                button.appendChild(textButton);
-                document.getElementById('button').appendChild(button);
-            }
+                if ((idLength !== 0 && !hasChild.hasChildNodes())) {
+                    // Create a new element: button
+                    var button = document.createElement('button');
+                    button.type = 'submit';
+                    button.id = 'process';
+                    button.className = 'btn btn-primary';
+                    var textButton = document.createTextNode('Process');
+                    button.appendChild(textButton);
+                    document.getElementById('button').appendChild(button);
+                }
 
-            if (!shown) {
-                // Hidden the element
-                var buttonLink = document.getElementById('process');
-                buttonLink.parentNode.removeChild(buttonLink);
+                if (!shown) {
+                    // Hidden the element
+                    var buttonLink = document.getElementById('process');
+                    buttonLink.parentNode.removeChild(buttonLink);
+                }
             }
-        }
-    </script>
-</head>
+        </script>
+    </head>
 
-<body>
-    <div class="align-bottom">
-        <form action="{% url 'index' %}" method="post">
-            <div class="input-group">
-                {% csrf_token %}
-                {{ form.as_p }}
+    <body>
+        {% if envoi %}
+            <h1>{{ inputText }}</h1>
+            <ul>
+                {% for text in inputText %}
+                    <li>{{ text }}</li>
+                {% endfor %}
+
+            </ul>
+            <button class="btn btn-primary" disabled="disabled">Process</button>
+        {% else %}
+            <div class="align-bottom">
+                <form action="{% url 'index' %}" method="post">
+                    <div class="input-group">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    <div id="button"></div>
+                </form>
             </div>
-            <div id="button"></div>
-        </form>
-    </div>
-</body>
+        {% endif %}
+    </body>
 </html>
