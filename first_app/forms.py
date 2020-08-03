@@ -2,4 +2,7 @@ from django import forms
 
 
 class FirstAppForm(forms.Form):
-	inputText = forms.CharField(label="Your text here", max_length=100)
+	inputText = forms.CharField(
+		label='Text',
+		widget=forms.TextInput(attrs={'class': 'form-group', 'onkeyup': 'onClick()', 'autocomplete': 'off'})
+	)
