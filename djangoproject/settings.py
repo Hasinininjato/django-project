@@ -53,6 +53,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'djangoproject.urls'
 
+AUTHENTICATION_BACKENDS = ['login.backends.EmailAuthBackend']
+
 TEMPLATES = [
 	{
 		'BACKEND': 'django.template.backends.django.DjangoTemplates',

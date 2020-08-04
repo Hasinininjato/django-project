@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex flex-row justify-content-center align-content-center pt-5 pb-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{% url 'login' %}" method="post">
+                                <h2>Connectez-vous à votre compte</h2>
+                                {% if error %}
+                                    <p class="alert-danger">
+                                        Adresse e-mail et/ou mot de passe incorrects.
+                                    </p>
+                                {% endif %}
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            {{ form.as_p }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Se connecter" class="col-12 btn btn-primary">
+                            </form>
+                            <br>
+                            <p>Vous n'avez pas de compte? <a href="{% url "index" %}">Inscrivez-vous.</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
