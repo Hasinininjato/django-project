@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login form</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <style>
+            div .card {
+                width: 50%;
+                height: 130%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex justify-content-center align-content-center pt-5 pb-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{% url 'login' %}" method="post">
+                                <h2>Authentication form</h2>
+                                {% if error %}
+                                    <p class="alert-danger">
+                                        <strong>Oops!</strong> You have entered invalid credentials.
+                                    </p>
+                                {% endif %}
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col">
+                                        {% for f in form %}
+                                            <div class="form-group">
+                                                {{ f.label }}
+                                                {{ f.as_widget }}
+                                                <div id="{{ f.name }}" class="alert-danger"></div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <input id="login" type="submit" value="Sign in" class="col-12 btn btn-primary">
+                            </form>
+                            <br>
+                            <p>Don't have an account? <a href="{% url "index" %}" >Create one</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            /**
+             * Validating a input text
+             * @param idField: the id field of the element to validate
+             */
+            function validation(idField) {
+                let id_email = document.getElementById(idField); // the input text to validate
+                let email = document.getElementById('email'); // div to show the error
+                let regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{1,4}$/;
+
+                let textError;
+
+                // if the email is valid, hide the div error field
+                if(regex.test(id_email.value)) {
+                    textError = document.createTextNode('');
+                    email.replaceChild(textError, email.firstChild);
+                }
+                else {
+                    // show the error to the user
+                    textError = document.createTextNode('Invalid email. Please enter a valid email address');
+                    if (!email.hasChildNodes()) {
+                        email.appendChild(textError);
+                    }
+                    else {
+                        email.replaceChild(textError, email.firstChild);
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -37,8 +37,7 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
-	'first_app.apps.FirstAppConfig',
-	'login.apps.LoginConfig',
+	'account_management.apps.AccountManagementConfig'
 ]
 
 MIDDLEWARE = [
@@ -53,13 +52,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'djangoproject.urls'
 
-AUTHENTICATION_BACKENDS = ['login.backends.EmailAuthBackend']
+AUTH_USER_MODEL = 'account_management.CustomUser'
 
 TEMPLATES = [
 	{
 		'BACKEND': 'django.template.backends.django.DjangoTemplates',
-		'DIRS': [os.path.join(BASE_DIR, 'templates')]
-		,
+		'DIRS': [os.path.join(BASE_DIR, 'templates')],
 		'APP_DIRS': True,
 		'OPTIONS': {
 			'context_processors': [
@@ -125,3 +123,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

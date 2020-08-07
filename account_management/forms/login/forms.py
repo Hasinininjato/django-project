@@ -3,20 +3,21 @@ from django import forms
 
 class LoginForm(forms.Form):
 	"""
-		Form for user sign in.
-		Fileds are: email address and password.
+		User login form.
+		Fields are: email address and password.
 	"""
 	email = forms.CharField(
-		label="Adresse e-mail",
+		label=r"Email address",
 		widget=forms.EmailInput(
 			attrs={
 				'class': 'form-control',
-				'autocomplete': 'off'
+				'autocomplete': 'off',
+				'onkeyup': 'validation("id_email")'
 			}
 		)
 	)
 	password = forms.CharField(
-		label="Mot de passe",
+		label=r"Password",
 		widget=forms.PasswordInput(
 			attrs={
 				'class': 'form-control'
