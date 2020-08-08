@@ -18,9 +18,9 @@
             <div class="row">
                 <div class="col d-flex justify-content-center align-content-center pt-5 pb-5">
                     <div class="card">
+                        <h1 style="text-align: center">Sign in</h1>
                         <div class="card-body">
                             <form action="{% url 'login' %}" method="post">
-                                <h2 class="justify-content-center align-content-center">Sign in</h2>
                                 {% if error %}
                                     <p class="alert-danger">
                                         <strong>Oops!</strong> You have entered invalid credentials.

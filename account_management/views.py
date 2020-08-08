@@ -40,13 +40,13 @@ def app_register(request):
 		if form.is_valid():
 			first_name = form.cleaned_data['first_name']
 			last_name = form.cleaned_data['last_name']
-			email = form.cleaned_data['email']
 			password = form.cleaned_data['password']
-			
-			user_email = CustomUser.objects.filter(email=email)
-			if user_email is not None:
-				return HttpResponseRedirect('register', locals())
-			
+			email = form.cleaned_data['email']
+			user = CustomUser.objects.filter(email=email)
+			if len(user) >= 1:  # The email address already exists in the database if the length is gte 1
+				error = True  # we show the error to tell that the email address is already used
+				return render(request, 'account_management/register/register.html', locals())  # render the registe
+			# form with a message
 			user = CustomUser.objects.create_user(
 				email=email,
 				password=password,
