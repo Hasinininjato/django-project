@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Login form</title>
+        <title>Register form</title>
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
@@ -12,20 +12,14 @@
             }
         </style>
     </head>
-
     <body>
         <div class="container">
             <div class="row">
                 <div class="col d-flex justify-content-center align-content-center pt-5 pb-5">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{% url 'login' %}" method="post">
-                                <h2 class="justify-content-center align-content-center">Sign in</h2>
-                                {% if error %}
-                                    <p class="alert-danger">
-                                        <strong>Oops!</strong> You have entered invalid credentials.
-                                    </p>
-                                {% endif %}
+                            <form action="{% url 'register' %}" method="post">
+                                <h2 class="justify-content-center align-content-center">Sign up</h2>
                                 {% csrf_token %}
                                 <div class="row">
                                     <div class="col">
@@ -38,10 +32,10 @@
                                         {% endfor %}
                                     </div>
                                 </div>
-                                <input id="button" type="submit" value="Sign in" class="col-12 btn btn-primary">
+                                <input id="button" type="submit" value="Sign up" class="col-12 btn btn-primary">
                             </form>
                             <br>
-                            <p>Don't have an account? <a href="{% url "register" %}">Create one</a>.</p>
+                            <p>Have an account? <a href="{% url "login" %}">Sign in</a>.</p>
                         </div>
                     </div>
                 </div>

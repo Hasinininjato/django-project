@@ -12,7 +12,7 @@ class LoginForm(forms.Form):
 			attrs={
 				'class': 'form-control',
 				'autocomplete': 'off',
-				'onkeyup': 'validation("id_email")'
+				'onkeyup': 'validationEmail("id_email", "Id_email")'
 			}
 		)
 	)
